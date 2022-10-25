@@ -6,16 +6,16 @@ import java.util.Objects;
 public class Post {
     private int id;
     private String name;
-    private String description;
+    private String desc;
     private LocalDateTime created = LocalDateTime.now();
 
     public Post() {
     }
 
-    public Post(int id, String name, String description) {
+    public Post(int id, String name, String desc) {
         this.id = id;
         this.name = name;
-        this.description = description;
+        this.desc = desc;
     }
 
     public int getId() {
@@ -34,12 +34,12 @@ public class Post {
         this.name = name;
     }
 
-    public String getDescription() {
-        return description;
+    public String getDesc() {
+        return desc;
     }
 
-    public void setDescription(String description) {
-        this.description = description;
+    public void setDesc(String desc) {
+        this.desc = desc;
     }
 
     public LocalDateTime getCreated() {
