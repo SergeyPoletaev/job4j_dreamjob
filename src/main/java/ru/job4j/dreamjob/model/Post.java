@@ -2,10 +2,8 @@ package ru.job4j.dreamjob.model;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Post {
-    private static final AtomicInteger COUNT = new AtomicInteger();
     private int id;
     private String name;
     private String description;
@@ -14,8 +12,8 @@ public class Post {
     public Post() {
     }
 
-    public Post(String name, String description) {
-        this.id = COUNT.incrementAndGet();
+    public Post(int id, String name, String description) {
+        this.id = id;
         this.name = name;
         this.description = description;
     }
@@ -24,8 +22,8 @@ public class Post {
         return id;
     }
 
-    public void setId() {
-        this.id = COUNT.incrementAndGet();
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
