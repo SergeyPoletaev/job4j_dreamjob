@@ -11,9 +11,9 @@ public class PostStore {
     private final Map<Integer, Post> posts = new ConcurrentHashMap<>();
 
     private PostStore() {
-        posts.put(1, new Post(1, "Junior Java Job", "msg1"));
-        posts.put(2, new Post(2, "Middle Java Job", "msg2"));
-        posts.put(3, new Post(3, "Senior Java Job", "msg3"));
+        posts.put(1, new Post("Junior Java Job", "msg1"));
+        posts.put(2, new Post("Middle Java Job", "msg2"));
+        posts.put(3, new Post("Senior Java Job", "msg3"));
     }
 
     public static PostStore instOf() {
@@ -25,6 +25,7 @@ public class PostStore {
     }
 
     public boolean add(Post post) {
+        post.setId();
         return posts.putIfAbsent(post.getId(), post) == null;
     }
 }
