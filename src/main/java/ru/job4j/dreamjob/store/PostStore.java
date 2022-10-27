@@ -33,7 +33,7 @@ public class PostStore {
     }
 
     public Optional<Post> findById(int id) {
-        return Optional.of(posts.get(id));
+        return Optional.ofNullable(posts.get(id));
     }
 
     public boolean update(Post post) {
