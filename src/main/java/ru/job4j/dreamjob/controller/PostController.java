@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
 
+import java.util.Optional;
+
 @Controller
 public class PostController {
     private final PostStore postStore = PostStore.instOf();
@@ -38,7 +40,11 @@ public class PostController {
 
     @GetMapping("/formUpdatePost/{postId}")
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
-        model.addAttribute("post", postStore.findById(id));
+        Optional<Post> post = postStore.findById(id);
+        if (post.isEmpty()) {
+            throw new IllegalArgumentException("Не найден объект для редактирования");
+        }
+        model.addAttribute("post", post.get());
         return "updatePost";
     }
 }
