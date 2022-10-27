@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import ru.job4j.dreamjob.model.Post;
 import ru.job4j.dreamjob.store.PostStore;
 
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Controller
@@ -42,7 +43,7 @@ public class PostController {
     public String formUpdatePost(Model model, @PathVariable("postId") int id) {
         Optional<Post> post = postStore.findById(id);
         if (post.isEmpty()) {
-            throw new IllegalArgumentException("Не найден объект для редактирования");
+            throw new NoSuchElementException("Не найден объект для редактирования");
         }
         model.addAttribute("post", post.get());
         return "updatePost";
