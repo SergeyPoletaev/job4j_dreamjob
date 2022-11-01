@@ -7,6 +7,7 @@ public class Post {
     private int id;
     private String name;
     private String desc;
+    private boolean visible;
     private LocalDateTime created = LocalDateTime.now();
 
     public Post() {
@@ -40,6 +41,14 @@ public class Post {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
     }
 
     public LocalDateTime getCreated() {
