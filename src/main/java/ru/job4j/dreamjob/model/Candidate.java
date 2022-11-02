@@ -7,6 +7,8 @@ public class Candidate {
     private int id;
     private String name;
     private String desc;
+    private boolean visible;
+    private City city;
     private LocalDateTime created = LocalDateTime.now();
 
     public Candidate() {
@@ -40,6 +42,22 @@ public class Candidate {
 
     public void setDesc(String desc) {
         this.desc = desc;
+    }
+
+    public boolean isVisible() {
+        return visible;
+    }
+
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public LocalDateTime getCreated() {

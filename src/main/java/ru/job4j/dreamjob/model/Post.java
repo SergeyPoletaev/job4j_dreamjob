@@ -8,6 +8,7 @@ public class Post {
     private String name;
     private String desc;
     private boolean visible;
+    private City city;
     private LocalDateTime created = LocalDateTime.now();
 
     public Post() {
@@ -49,6 +50,14 @@ public class Post {
 
     public void setVisible(boolean visible) {
         this.visible = visible;
+    }
+
+    public City getCity() {
+        return city;
+    }
+
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public LocalDateTime getCreated() {
