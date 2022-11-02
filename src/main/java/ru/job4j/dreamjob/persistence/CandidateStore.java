@@ -17,9 +17,9 @@ public class CandidateStore {
     private final Map<Integer, Candidate> candidates = new ConcurrentHashMap<>();
 
     private CandidateStore() {
-        candidates.put(1, new Candidate(count.incrementAndGet(), "Anna", "level-1"));
-        candidates.put(2, new Candidate(count.incrementAndGet(), "Sveta", "level-2"));
-        candidates.put(3, new Candidate(count.incrementAndGet(), "Tanya", "level-3"));
+        candidates.put(1, new Candidate(count.incrementAndGet(), "Anna", "level-1", new byte[0]));
+        candidates.put(2, new Candidate(count.incrementAndGet(), "Sveta", "level-2", new byte[0]));
+        candidates.put(3, new Candidate(count.incrementAndGet(), "Tanya", "level-3", new byte[0]));
     }
 
     public Collection<Candidate> findAll() {

@@ -9,15 +9,17 @@ public class Candidate {
     private String desc;
     private boolean visible;
     private City city;
+    private byte[] photo;
     private LocalDateTime created = LocalDateTime.now();
 
     public Candidate() {
     }
 
-    public Candidate(int id, String name, String desc) {
+    public Candidate(int id, String name, String desc, byte[] photo) {
         this.id = id;
         this.name = name;
         this.desc = desc;
+        this.photo = photo;
     }
 
     public int getId() {
@@ -58,6 +60,14 @@ public class Candidate {
 
     public void setCity(City city) {
         this.city = city;
+    }
+
+    public byte[] getPhoto() {
+        return photo;
+    }
+
+    public void setPhoto(byte[] photo) {
+        this.photo = photo;
     }
 
     public LocalDateTime getCreated() {
