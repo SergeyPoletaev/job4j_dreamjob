@@ -20,6 +20,12 @@ public class Post {
         this.desc = desc;
     }
 
+    public Post(int id, String name, City city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+    }
+
     public Post(int id, String name, String desc, boolean visible, City city, LocalDateTime created) {
         this.id = id;
         this.name = name;

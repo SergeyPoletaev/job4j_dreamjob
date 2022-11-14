@@ -22,6 +22,12 @@ public class Candidate {
         this.photo = photo;
     }
 
+    public Candidate(int id, String name, City city) {
+        this.id = id;
+        this.name = name;
+        this.city = city;
+    }
+
     public Candidate(int id, String name, String desc, boolean visible, City city, byte[] photo, LocalDateTime created) {
         this.id = id;
         this.name = name;
