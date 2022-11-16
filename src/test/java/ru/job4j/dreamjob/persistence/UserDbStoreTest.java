@@ -37,7 +37,7 @@ class UserDbStoreTest {
     @Test
     void whenRegisterUserWithUniqueEmail() {
         UserDbStore store = new UserDbStore(pool);
-        User user = new User(0, "Java Job", "anna@ya");
+        User user = new User(0, "Java Job", "anna@ya", "2022");
         store.add(user);
         User userInDb = store.findById(user.getId()).orElseThrow();
         assertThat(userInDb.getName()).isEqualTo(user.getName());
@@ -46,12 +46,20 @@ class UserDbStoreTest {
     @Test
     void whenRegisterUserWithDuplicateEmail() {
         UserDbStore store = new UserDbStore(pool);
-        User user1 = new User(0, "Java Job", "anna@ya");
+        User user1 = new User(0, "Java Job", "anna@ya", "2022");
         store.add(user1);
-        User user2 = new User(0, "Java Job", "anna@ya");
+        User user2 = new User(0, "Java Job", "anna@ya", "2022");
         store.add(user2);
         List<User> usersInDb = store.findAll();
         assertThat(usersInDb).isEqualTo(List.of(user1));
     }
 
+    @Test
+    void whenFindUserWithEmailAndPassword() {
+        UserDbStore store = new UserDbStore(pool);
+        User user = new User(0, "Java Job", "anna@ya", "2022");
+        store.add(user);
+        User userInDb = store.findUserByEmailAndPassword(user.getEmail(), user.getPassword()).orElseThrow();
+        assertThat(userInDb.getName()).isEqualTo(user.getName());
+    }
 }

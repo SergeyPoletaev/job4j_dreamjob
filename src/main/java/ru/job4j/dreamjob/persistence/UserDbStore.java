@@ -17,8 +17,9 @@ import java.util.Optional;
 @Repository
 public class UserDbStore {
     private final static Logger LOG = LoggerFactory.getLogger(UserDbStore.class.getName());
-    private final static String INSERT_INTO_USER = "INSERT INTO users(name, email) VALUES (?, ?)";
+    private final static String INSERT_INTO_USER = "INSERT INTO users(name, email, password) VALUES (?, ?, ?)";
     private final static String SELECT_USERS_BY_ID = "SELECT * FROM users WHERE id = ?";
+    private final static String SELECT_USERS_BY_EMAIL_AND_PASSWORD = "SELECT * FROM users WHERE email = ? AND password = ?";
     private final static String SELECT_ALL_USERS = "SELECT * FROM users";
 
     private final BasicDataSource pool;
@@ -33,6 +34,7 @@ public class UserDbStore {
              PreparedStatement ps = cn.prepareStatement(INSERT_INTO_USER, PreparedStatement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, user.getName());
             ps.setString(2, user.getEmail());
+            ps.setString(3, user.getPassword());
             rsl = ps.executeUpdate() > 0;
             try (ResultSet id = ps.getGeneratedKeys()) {
                 if (id.next()) {
@@ -82,6 +84,25 @@ public class UserDbStore {
         return new User(
                 rs.getInt("id"),
                 rs.getString("name"),
-                rs.getString("email"));
+                rs.getString("email"),
+                rs.getString("password"));
+    }
+
+    public Optional<User> findUserByEmailAndPassword(String email, String password) {
+        Optional<User> rsl = Optional.empty();
+        try (Connection cn = pool.getConnection();
+             PreparedStatement ps = cn.prepareStatement(SELECT_USERS_BY_EMAIL_AND_PASSWORD)
+        ) {
+            ps.setString(1, email);
+            ps.setString(2, password);
+            try (ResultSet it = ps.executeQuery()) {
+                if (it.next()) {
+                    rsl = Optional.of(getUser(it));
+                }
+            }
+        } catch (Exception e) {
+            LOG.error(e.getMessage(), e);
+        }
+        return rsl;
     }
 }
