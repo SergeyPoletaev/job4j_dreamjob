@@ -15,9 +15,12 @@ import ru.job4j.dreamjob.model.City;
 import ru.job4j.dreamjob.service.CandidateService;
 import ru.job4j.dreamjob.service.CityService;
 
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+
+import static ru.job4j.dreamjob.utils.HttpHelper.setSessionToModel;
 
 @ThreadSafe
 @Controller
@@ -31,13 +34,15 @@ public class CandidateController {
     }
 
     @GetMapping("/candidates")
-    public String candidates(Model model) {
+    public String candidates(Model model, HttpSession session) {
+        setSessionToModel(session, model);
         model.addAttribute("candidates", candidateService.findAll());
         return "candidates";
     }
 
     @GetMapping("/formAddCandidate")
-    public String addCandidate(Model model) {
+    public String addCandidate(Model model, HttpSession session) {
+        setSessionToModel(session, model);
         model.addAttribute("cities", cityService.getAllCities());
         return "addCandidate";
     }
@@ -67,11 +72,12 @@ public class CandidateController {
     }
 
     @GetMapping("/formUpdateCandidate/{candidateId}")
-    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id) {
+    public String formUpdateCandidate(Model model, @PathVariable("candidateId") int id, HttpSession session) {
         Optional<Candidate> candidate = candidateService.findById(id);
         model.addAttribute("candidate",
                 candidate.orElseThrow(() -> new NoSuchElementException("Не найден объект для редактирования")));
         model.addAttribute("cities", cityService.getAllCities());
+        setSessionToModel(session, model);
         return "updateCandidate";
     }
 

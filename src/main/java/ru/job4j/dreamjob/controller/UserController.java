@@ -11,7 +11,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
+import javax.servlet.http.HttpSession;
 import java.util.Optional;
+
+import static ru.job4j.dreamjob.utils.HttpHelper.setSessionToModel;
 
 @ThreadSafe
 @Controller
@@ -23,7 +26,8 @@ public class UserController {
     }
 
     @GetMapping("/formAddUser")
-    public String formAddPost() {
+    public String formAddPost(Model model, HttpSession session) {
+        setSessionToModel(session, model);
         return "addUser";
     }
 
@@ -38,19 +42,27 @@ public class UserController {
     }
 
     @GetMapping("/loginPage")
-    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail) {
+    public String loginPage(Model model, @RequestParam(name = "fail", required = false) Boolean fail, HttpSession session) {
         model.addAttribute("fail", fail != null);
+        setSessionToModel(session, model);
         return "login";
     }
 
     @PostMapping("/login")
-    public String login(@ModelAttribute User user) {
+    public String login(@ModelAttribute User user, HttpSession session) {
         Optional<User> userDb = userService.findUserByEmailAndPassword(
                 user.getEmail(), user.getPassword()
         );
         if (userDb.isEmpty()) {
             return "redirect:/loginPage?fail=true";
         }
+        session.setAttribute("user", userDb.get());
         return "redirect:/index";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "redirect:/loginPage";
     }
 }
