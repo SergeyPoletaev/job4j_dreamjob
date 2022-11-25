@@ -13,3 +13,4 @@
 Кандидаты могут откликнуться на вакансию. Кадровик может пригласить на вакансию кандидата.
 
 [![build](https://github.com/SergeyPoletaev/job4j_dreamjob/workflows/build/badge.svg)](https://github.com/SergeyPoletaev/job4j_dreamjob/actions)
+[![codecov](https://codecov.io/gh/SergeyPoletaev/job4j_dreamjob/branch/master/graph/badge.svg?token=FO9PU20HV5)](https://codecov.io/gh/SergeyPoletaev/job4j_dreamjob)
