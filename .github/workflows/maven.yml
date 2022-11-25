@@ -26,3 +26,5 @@ jobs:
       run: mvn -B package --file pom.xml
     - name: Jacoco report
       run: mvn test jacoco:report
+    - name: Jacoco init
+      run: curl -Os https://uploader.codecov.io/latest/linux/codecov chmod +x codecov ./codecov
